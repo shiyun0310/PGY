@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 教學訓練計畫主持人工作坊</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --purple-1: #667eea;
+    --purple-2: #764ba2;
+    --purple-3: #a855f7;
+    --purple-4: #6d28d9;
+    --pink: #ec4899;
+    --gold: #fbbf24;
+  }
+
+  body {
+    font-family: "Segoe UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #4c1d95, #7c3aed, #a855f7, #6366f1, #8b5cf6);
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* 漂浮 emoji 背景 */
+  .floating-emoji {
+    position: fixed;
+    font-size: 2rem;
+    opacity: 0.18;
+    pointer-events: none;
+    animation: floatUp linear infinite;
+    z-index: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(105vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.2rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem;
+    animation: popIn 0.9s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    padding: 0.45rem 1.4rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.4rem;
+    animation: bounce 2.4s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 5.5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.3;
+    background: linear-gradient(90deg, #fff, #fde68a, #fff, #f0abfc, #fff);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    text-shadow: 0 0 40px rgba(251,191,36,0.25);
+  }
+  @keyframes shine {
+    to { background-position: 300% center; }
+  }
+  .hero p.sub {
+    margin-top: 1rem;
+    font-size: 1.15rem;
+    opacity: 0.9;
+  }
+
+  /* ===== 活動資訊卡片 ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.2rem;
+    margin: 2.2rem 0 3rem;
+  }
+  .info-card {
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 22px;
+    padding: 1.6rem 1.3rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideUp 0.8s ease both;
+  }
+  .info-card:nth-child(2) { animation-delay: 0.15s; }
+  .info-card:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes slideUp {
+    from { transform: translateY(35px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .info-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+  }
+  .info-card .icon {
+    font-size: 2.6rem;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .info-card h3 {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    opacity: 0.75;
+    margin-bottom: 0.4rem;
+  }
+  .info-card p {
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* ===== 區段標題 ===== */
+  .section-title {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin: 2.5rem 0 1.6rem;
+  }
+  .section-title span {
+    background: linear-gradient(90deg, var(--gold), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ===== 報名表單 ===== */
+  .form-card {
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 28px;
+    padding: 2.2rem 1.8rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.3rem;
+  }
+  .field { display: flex; flex-direction: column; }
+  .field.full { grid-column: 1 / -1; }
+  .field label {
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+    font-size: 1rem;
+  }
+  .field input, .field select {
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.92);
+    color: #4c1d95;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(251,191,36,0.35);
+    transform: scale(1.015);
+  }
+  .field input::placeholder { color: #a78bfa; }
+
+  /* 二擇一選項 pill */
+  .pill-group { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .pill-group input[type="radio"] { display: none; }
+  .pill-group label.pill {
+    flex: 1;
+    min-width: 110px;
+    text-align: center;
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    border: 2px solid rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.1);
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    margin-bottom: 0;
+  }
+  .pill-group label.pill:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .pill-group input[type="radio"]:checked + label.pill {
+    background: linear-gradient(90deg, var(--gold), var(--pink));
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(236,72,153,0.45);
+  }
+
+  /* 送出按鈕 */
+  .submit-btn {
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1.1rem;
+    font-size: 1.25rem;
+    font-weight: 900;
+    font-family: inherit;
+    color: #fff;
+    background: linear-gradient(90deg, var(--gold), var(--pink), var(--purple-3));
+    background-size: 200% auto;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    letter-spacing: 0.1em;
+  }
+  .submit-btn:hover {
+    background-position: right center;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(236,72,153,0.5);
+  }
+  .submit-btn:active { transform: scale(0.97); }
+
+  .success-msg {
+    display: none;
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    background: rgba(74,222,128,0.2);
+    border: 2px solid rgba(74,222,128,0.6);
+    border-radius: 16px;
+    padding: 1rem;
+    animation: popIn 0.6s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 3.5rem;
+    text-align: center;
+    background: rgba(0,0,0,0.22);
+    border-radius: 22px;
+    padding: 1.8rem 1.2rem;
+    line-height: 2;
+    font-size: 1rem;
+  }
+  footer .org { font-size: 1.15rem; font-weight: 900; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 620px) {
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="badge">✨ 奇美醫院教學部 主辦 ✨</div>
+    <h1>🎓 教學訓練計畫主持人<br>工作坊 🚀</h1>
+    <p class="sub">💡 一起打造更棒的教學訓練計畫!名額有限,手刀報名 🏃💨</p>
+  </header>
+
+  <!-- 活動資訊 -->
+  <section class="info-grid">
+    <div class="info-card">
+      <span class="icon">📅</span>
+      <h3>日期 DATE</h3>
+      <p>2026/01/25 (日)</p>
+    </div>
+    <div class="info-card">
+      <span class="icon">⏰</span>
+      <h3>時間 TIME</h3>
+      <p>9:00 ~ 16:00</p>
+    </div>
+    <div class="info-card">
+      <span class="icon">📍</span>
+      <h3>地點 VENUE</h3>
+      <p>奇美醫院第五醫療大樓<br>6樓 563會議室</p>
+    </div>
+  </section>
+
+  <!-- 報名表單 -->
+  <h2 class="section-title">📝 <span>報名資訊</span> 📝</h2>
+  <section class="form-card">
+    <form id="regForm">
+      <div class="form-grid">
+        <div class="field">
+          <label>🙋 姓名</label>
+          <input type="text" name="name" placeholder="請輸入您的大名" required>
+        </div>
+        <div class="field">
+          <label>🏥 機構名</label>
+          <input type="text" name="org" placeholder="請輸入服務機構" required>
+        </div>
+        <div class="field">
+          <label>💼 職稱</label>
+          <input type="text" name="title" placeholder="請輸入職稱" required>
+        </div>
+        <div class="field">
+          <label>🩺 負責的職類</label>
+          <select name="category" required>
+            <option value="" disabled selected>請選擇職類 👇</option>
+            <option>💊 藥事</option>
+            <option>☢️ 醫事放射</option>
+            <option>🔬 醫事檢驗</option>
+            <option>👩‍⚕️ 護理</option>
+            <option>🥗 營養</option>
+            <option>🫁 呼吸治療</option>
+            <option>👂 聽力</option>
+            <option>🦵 物理治療</option>
+            <option>✋ 職能治療</option>
+            <option>🧠 臨床心理</option>
+            <option>🗣️ 語言治療</option>
+            <option>🌟 其他</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>🎯 您目前是否擔任教學訓練計畫主持人</label>
+          <div class="pill-group">
+            <input type="radio" id="pi-yes" name="isPI" value="是" required>
+            <label class="pill" for="pi-yes">✅ 是</label>
+            <input type="radio" id="pi-no" name="isPI" value="否">
+            <label class="pill" for="pi-no">❌ 否</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label>🎪 您預計以何種方式參與</label>
+          <div class="pill-group">
+            <input type="radio" id="mode-onsite" name="mode" value="實體" required>
+            <label class="pill" for="mode-onsite">🏢 實體參與</label>
+            <input type="radio" id="mode-online" name="mode" value="線上">
+            <label class="pill" for="mode-online">💻 線上參與</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>📧 Email</label>
+          <input type="email" name="email" placeholder="example@mail.com" required>
+        </div>
+        <div class="field">
+          <label>📞 聯繫電話</label>
+          <input type="tel" name="phone" placeholder="0912-345-678" required>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">🚀 立即報名 GO!</button>
+      <div class="success-msg" id="successMsg">🎉 報名成功!我們將盡快與您聯繫,期待與您相見 💜</div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="org">🏥 主辦單位:奇美醫院教學部</p>
+    <p>👤 聯絡人:陳大頭</p>
+    <p>☎️ 聯繫電話:<a href="tel:062812811">06-281-2811</a> 分機 57112233</p>
+    <p style="opacity:0.7; font-size:0.85rem; margin-top:0.5rem;">💜 期待您的參與,一起讓教學更精彩!💜</p>
+  </footer>
+
+</div>
+
+<script>
+  // 漂浮 emoji 背景
+  const emojis = ['🎓', '📚', '✨', '💡', '🚀', '⭐', '🎯', '📝', '💜', '🏥'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'floating-emoji';
+    el.textContent = emojis[i % emojis.length];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
+    el.style.animationDuration = (12 + Math.random() * 18) + 's';
+    el.style.animationDelay = (-Math.random() * 20) + 's';
+    document.body.appendChild(el);
+  }
+
+  // 表單送出 → 顯示成功訊息 + 灑花
+  document.getElementById('regForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('successMsg').style.display = 'block';
+    this.querySelector('.submit-btn').textContent = '🎊 已送出,感謝報名!';
+    confetti();
+  });
+
+  // 簡易灑花動畫
+  function confetti() {
+    const pieces = ['🎉', '🎊', '💜', '⭐', '✨'];
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+      c.style.cssText = `
+        position: fixed; z-index: 999; pointer-events: none;
+        left: ${Math.random() * 100}vw; top: -5vh;
+        font-size: ${1 + Math.random() * 1.6}rem;
+        transition: transform ${2 + Math.random() * 2}s ease-in, opacity 3.5s ease-in;
+      `;
+      document.body.appendChild(c);
+      requestAnimationFrame(() => {
+        c.style.transform = `translateY(${105 + Math.random() * 20}vh) rotate(${Math.random() * 720 - 360}deg)`;
+        c.style.opacity = '0';
+      });
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+</script>
+
+</body>
+</html>
